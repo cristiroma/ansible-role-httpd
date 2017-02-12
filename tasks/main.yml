@@ -1,0 +1,88 @@
+---
+- name: install httpd
+  yum: name=httpd state=installed
+
+- name: configure httpd security
+  copy: src="files/security.conf" dest="/etc/httpd/conf.d/security.conf" owner="root" group="root"
+
+- name: remove autoindex.conf
+  file: path="/etc/httpd/conf.d/autoindex.conf" state="absent"
+
+- name: configure httpd caching
+  template: src="templates/expires.conf.j2" dest="/etc/httpd/conf.d/expires.conf" owner="root" group="root"
+
+- name: disable httpd modules
+  replace:
+    dest: '{{ item.file }}'
+    regexp: '^{{ item.module }}'
+    replace: '#{{ item.module }}'
+  with_items:
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule access_compat_module modules/mod_access_compat.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule access_compat_module modules/mod_access_compat.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule actions_module modules/mod_actions.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_basic_module modules/mod_auth_basic.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_digest_module modules/mod_auth_digest.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_anon_module modules/mod_authn_anon.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_core_module modules/mod_authn_core.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_dbd_module modules/mod_authn_dbd.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_dbm_module modules/mod_authn_dbm.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_file_module modules/mod_authn_file.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authn_socache_module modules/mod_authn_socache.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_dbd_module modules/mod_authz_dbd.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_dbm_module modules/mod_authz_dbm.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_groupfile_module modules/mod_authz_groupfile.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_host_module modules/mod_authz_host.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_owner_module modules/mod_authz_owner.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_user_module modules/mod_authz_user.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule autoindex_module modules/mod_autoindex.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule cache_module modules/mod_cache.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule cache_disk_module modules/mod_cache_disk.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule data_module modules/mod_data.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule dbd_module modules/mod_dbd.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule deflate_module modules/mod_deflate.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule dir_module modules/mod_dir.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule echo_module modules/mod_echo.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule info_module modules/mod_info.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule socache_dbm_module modules/mod_socache_dbm.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule socache_memcache_module modules/mod_socache_memcache.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule socache_shmcb_module modules/mod_socache_shmcb.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule substitute_module modules/mod_substitute.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule userdir_module modules/mod_userdir.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule version_module modules/mod_version.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule buffer_module modules/mod_buffer.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule watchdog_module modules/mod_watchdog.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule heartbeat_module modules/mod_heartbeat.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule heartmonitor_module modules/mod_heartmonitor.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule usertrack_module modules/mod_usertrack.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule dialup_module modules/mod_dialup.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule charset_lite_module modules/mod_charset_lite.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule log_debug_module modules/mod_log_debug.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule ratelimit_module modules/mod_ratelimit.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule reflector_module modules/mod_reflector.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule request_module modules/mod_request.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule sed_module modules/mod_sed.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule speling_module modules/mod_speling.so' }
+
+    - { file: '/etc/httpd/conf.modules.d/00-dav.conf', module: 'LoadModule dav_module modules/mod_dav.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-dav.conf', module: 'LoadModule dav_fs_module modules/mod_dav_fs.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-dav.conf', module: 'LoadModule dav_lock_module modules/mod_dav_lock.so' }
+
+    - { file: '/etc/httpd/conf.modules.d/00-lua.conf', module: 'LoadModule lua_module modules/mod_lua.so' }
+
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule lbmethod_bybusyness_module modules/mod_lbmethod_bybusyness.so' }
+
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule lbmethod_byrequests_module modules/mod_lbmethod_byrequests.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule lbmethod_bytraffic_module modules/mod_lbmethod_bytraffic.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule lbmethod_heartbeat_module modules/mod_lbmethod_heartbeat.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_ajp_module modules/mod_proxy_ajp.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_balancer_module modules/mod_proxy_balancer.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_connect_module modules/mod_proxy_connect.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_express_module modules/mod_proxy_express.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_ftp_module modules/mod_proxy_ftp.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_scgi_module modules/mod_proxy_scgi.so' }
+    - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so' }
+
+- name: enable and start httpd
+  service: name=httpd state=started enabled=yes

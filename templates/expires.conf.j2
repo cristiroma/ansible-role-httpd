@@ -1,0 +1,22 @@
+FileETag none
+
+<IfModule mod_headers.c>
+  Header unset Etag
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresDefault "access plus 1 months"
+
+    <Filesmatch "\.(ico|gif|jpg|jpeg|png|ico)$">
+      ExpiresDefault "access plus 1 months"
+    </Filesmatch>
+
+    <Filesmatch "\.(css|js)$">
+      ExpiresDefault "access plus 1 months"
+    </Filesmatch>
+
+    <Filesmatch "\.(pdf)$">
+      ExpiresDefault "access plus 1 months"
+    </Filesmatch>
+</IfModule>
