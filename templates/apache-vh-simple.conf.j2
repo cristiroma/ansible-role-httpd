@@ -2,9 +2,6 @@
     ServerName {{ item.vh_domain }}
     DocumentRoot {{ item.vh_home }}
     <Directory {{ item.vh_home }}>
-        AllowOverride All
-        Order allow,deny
-        Allow from all
         Require all granted
     </Directory>
 </VirtualHost>

@@ -18,7 +18,6 @@
     replace: '#{{ item.module }}'
   with_items:
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule access_compat_module modules/mod_access_compat.so' }
-    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule access_compat_module modules/mod_access_compat.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule actions_module modules/mod_actions.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_basic_module modules/mod_auth_basic.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_digest_module modules/mod_auth_digest.so' }
@@ -31,7 +30,6 @@
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_dbd_module modules/mod_authz_dbd.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_dbm_module modules/mod_authz_dbm.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_groupfile_module modules/mod_authz_groupfile.so' }
-    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_host_module modules/mod_authz_host.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_owner_module modules/mod_authz_owner.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule authz_user_module modules/mod_authz_user.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule autoindex_module modules/mod_autoindex.so' }

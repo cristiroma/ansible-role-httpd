@@ -1,20 +1,15 @@
 galaxy_info:
   author: Cristian Romanescu
-  description: https://github.com/cristiroma
+  description: production-ready httpd configuration
   company: Eau de Web
-
   license: BSD
-
   min_ansible_version: 1.2
-
   platforms:
     - name: EL
       versions:
         - 7
-
   galaxy_tags:
     - httpd
     - apache
     - webserver
-
 dependencies: []
