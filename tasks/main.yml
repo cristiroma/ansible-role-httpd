@@ -11,6 +11,14 @@
 - name: configure httpd caching
   template: src="templates/expires.conf.j2" dest="/etc/httpd/conf.d/expires.conf" owner="root" group="root"
 
+- name: create virtual hosts
+  template: src="templates/{{ item.template }}" dest="/etc/httpd/conf.d/{{ item.dest }}" owner="root" group="root"
+  with_items: "{{ apache_virtual_hosts }}"
+  notify: restart httpd server
+  tags:
+    - create-vh
+
+
 - name: disable httpd modules
   replace:
     dest: '{{ item.file }}'
