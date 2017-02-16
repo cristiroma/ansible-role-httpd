@@ -1,6 +1,6 @@
 ---
 - name: install httpd
-  yum: name=httpd state=installed
+  yum: name="httpd" state="installed"
 
 - name: configure httpd security
   copy: src="files/security.conf" dest="/etc/httpd/conf.d/security.conf" owner="root" group="root"
@@ -82,4 +82,4 @@
     - { file: '/etc/httpd/conf.modules.d/00-proxy.conf', module: 'LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so' }
 
 - name: enable and start httpd
-  service: name=httpd state=started enabled=yes
+  service: name="httpd" state="started" enabled="yes"
