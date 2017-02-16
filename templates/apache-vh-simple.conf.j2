@@ -4,4 +4,7 @@
     <Directory {{ item.vh_home }}>
         Require all granted
     </Directory>
+    {% if item.vh_extra is defined %}
+    {{ item.vh_extra }}
+    {% endif %}
 </VirtualHost>
