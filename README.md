@@ -21,6 +21,12 @@ Role Variables
           vh_domain: "domain2.com", vh_home: "/var/www/html/domain2",
           template: "apache-vh-simple.conf.j2", dest: "domain2.conf",
         }
+
+    apache_expires_default: "access plus 1 months"
+    apache_expires_default_images: "{{ apache_expires_default }}"
+    apache_expires_default_js: "{{ apache_expires_default }}"
+    apache_expires_default_css: "{{ apache_expires_default }}"
+    apache_expires_default_pdf: "{{ apache_expires_default }}"
 ```
 
 Dependencies

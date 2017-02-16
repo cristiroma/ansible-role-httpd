@@ -1,3 +1,7 @@
 ---
-# defaults file for ansible-role-httpd
 apache_virtual_hosts: []
+apache_expires_default: "access plus 1 months"
+apache_expires_default_images: "{{ apache_expires_default }}"
+apache_expires_default_js: "{{ apache_expires_default }}"
+apache_expires_default_css: "{{ apache_expires_default }}"
+apache_expires_default_pdf: "{{ apache_expires_default }}"

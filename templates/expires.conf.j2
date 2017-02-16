@@ -6,17 +6,21 @@ FileETag none
 
 <IfModule mod_expires.c>
     ExpiresActive on
-    ExpiresDefault "access plus 1 months"
+    ExpiresDefault "{{ apache_expires_default }}"
 
     <Filesmatch "\.(ico|gif|jpg|jpeg|png|ico)$">
-      ExpiresDefault "access plus 1 months"
+      ExpiresDefault "{{ apache_expires_default_images }}"
     </Filesmatch>
 
-    <Filesmatch "\.(css|js)$">
-      ExpiresDefault "access plus 1 months"
+    <Filesmatch "\.(css)$">
+      ExpiresDefault "{{ apache_expires_default_js }}"
+    </Filesmatch>
+
+    <Filesmatch "\.(js)$">
+      ExpiresDefault "{{ apache_expires_default_css }}"
     </Filesmatch>
 
     <Filesmatch "\.(pdf)$">
-      ExpiresDefault "access plus 1 months"
+      ExpiresDefault "{{ apache_expires_default_pdf }}"
     </Filesmatch>
 </IfModule>
