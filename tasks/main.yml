@@ -25,7 +25,6 @@
     regexp: '^{{ item.module }}'
     replace: '#{{ item.module }}'
   with_items:
-    - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule access_compat_module modules/mod_access_compat.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule actions_module modules/mod_actions.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_basic_module modules/mod_auth_basic.so' }
     - { file: '/etc/httpd/conf.modules.d/00-base.conf', module: 'LoadModule auth_digest_module modules/mod_auth_digest.so' }
